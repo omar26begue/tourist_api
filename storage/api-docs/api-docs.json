@@ -1,0 +1,666 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Tourist",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "localhost",
+            "variables": {
+                "schema": {
+                    "enum": [
+                        "https",
+                        "http"
+                    ],
+                    "default": "http"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Autentificación"
+                ],
+                "summary": "Autentificación de usuarios",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "example@gmail.com",
+                                    "password": "password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/auth/info": {
+            "get": {
+                "tags": [
+                    "Autentificación"
+                ],
+                "summary": "Información del usuario autenticado",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::info",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/recuperar/{email}": {
+            "get": {
+                "tags": [
+                    "Autentificación"
+                ],
+                "summary": "Recuperar la contraseña usuario",
+                "operationId": "App\\Http\\Controllers\\Api\\AuthController::recuperarContrasena",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Correo electrónico",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false
+            }
+        },
+        "/comentarios/list": {
+            "get": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Listado de comentarios",
+                "operationId": "App\\Http\\Controllers\\API\\ComentariosController::list_comentarios",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/comentarios/add": {
+            "post": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Adiciona un comentario",
+                "operationId": "App\\Http\\Controllers\\API\\ComentariosController::add_comentario",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "texto": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "texto": "comentario"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/list": {
+            "get": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Listado de sitios turisticos",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::list_sitios",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/add": {
+            "post": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Adiciona un sitio turístico",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::add_sitio",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "ubicacion": {
+                                        "type": "string"
+                                    },
+                                    "distancia": {
+                                        "type": "float"
+                                    },
+                                    "tiempo": {
+                                        "type": "int"
+                                    },
+                                    "poblacion": {
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "nombre": "nombre del sitio turistico",
+                                    "ubicacion": "localización",
+                                    "distancia": 0,
+                                    "tiempo": 0,
+                                    "poblacion": 1000
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/uploadphoto/{idsitio}": {
+            "post": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Sube al servidor la foto del sitio",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::subir_imagen",
+                "parameters": [
+                    {
+                        "name": "idsitio",
+                        "in": "path",
+                        "description": "Identificador del sitio",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "image_sitio": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/calificar/{idsitio}/{idimagen}/{calificacion}": {
+            "post": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Califica una imagen",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::calificar_imagen",
+                "parameters": [
+                    {
+                        "name": "idsitio",
+                        "in": "path",
+                        "description": "Identificador del sitio",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "idimagen",
+                        "in": "path",
+                        "description": "Identificador de la imagen",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "calificacion",
+                        "in": "path",
+                        "description": "Calificacion",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/imagen_position/{idimagen}": {
+            "post": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Salvar posicion imagen",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::save_position",
+                "parameters": [
+                    {
+                        "name": "idimagen",
+                        "in": "path",
+                        "description": "Identificador de la imagen",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "lat": {
+                                        "type": "string"
+                                    },
+                                    "lon": {
+                                        "type": "string"
+                                    },
+                                    "zoom": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "lat": "lat",
+                                    "lon": "lon",
+                                    "zoom": "zoom"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/sitios/delete/{idsitio}": {
+            "delete": {
+                "tags": [
+                    "Sitios turísticos"
+                ],
+                "summary": "Elimina un sitio turístico",
+                "operationId": "App\\Http\\Controllers\\API\\SitiosController::delele_sitio",
+                "parameters": [
+                    {
+                        "name": "idsitio",
+                        "in": "path",
+                        "description": "Identificador del sitio",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/usuarios/list": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Listado de usuarios",
+                "operationId": "App\\Http\\Controllers\\API\\UsuariosController::list_usuarios",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/usuarios/add": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Adiciona un usuario",
+                "operationId": "App\\Http\\Controllers\\API\\UsuariosController::add_usuarios",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "rol": {
+                                        "type": "string",
+                                        "enum": [
+                                            "admin",
+                                            "tourist"
+                                        ]
+                                    },
+                                    "nombres": {
+                                        "type": "string"
+                                    },
+                                    "apellido1": {
+                                        "type": "string"
+                                    },
+                                    "apellido2": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "example@gmail.com",
+                                    "rol": "tourist",
+                                    "nombres": "Pepe",
+                                    "apellido1": "de la Paz",
+                                    "apellido2": "Garcia"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/usuarios/update/{idusuario}": {
+            "patch": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Modificar un usuario",
+                "operationId": "App\\Http\\Controllers\\API\\UsuariosController::update_usuarios",
+                "parameters": [
+                    {
+                        "name": "idusuario",
+                        "in": "path",
+                        "description": "Identificador del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "rol": {
+                                        "type": "string",
+                                        "enum": [
+                                            "admin",
+                                            "tourist"
+                                        ]
+                                    },
+                                    "nombres": {
+                                        "type": "string"
+                                    },
+                                    "apellido1": {
+                                        "type": "string"
+                                    },
+                                    "apellido2": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "example@gmail.com",
+                                    "rol": "tourist",
+                                    "nombres": "Pepe",
+                                    "apellido1": "de la Paz",
+                                    "apellido2": "Garcia"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/usuarios/delete/{idusuario}": {
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Eliminar un usuario",
+                "operationId": "App\\Http\\Controllers\\API\\UsuariosController::delete_usuarios",
+                "parameters": [
+                    {
+                        "name": "idusuario",
+                        "in": "path",
+                        "description": "Identificador del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed"
+                    }
+                },
+                "deprecated": false,
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "login",
+                "name": "token",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
